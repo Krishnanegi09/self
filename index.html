@@ -939,12 +939,12 @@ window.addEventListener('scroll',()=>{
 // 🔗 SUPABASE SETUP
 const supabaseUrl = "https://sdabzuqkhkpjdaopygmk.supabase.co";
 const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNkYWJ6dXFraGtwamRhb3B5Z21rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcwNTUwODMsImV4cCI6MjA5MjYzMTA4M30.BNMvgQxVyaTBV1iRKFLPn59IvMcFzStYCe5JzfHalj8";
-const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+const sb = window.supabase.createClient(supabaseUrl, supabaseKey);
 
 // 🚀 VISITOR COUNTER
 async function updateVisitor() {
   try {
-    const { data, error } = await supabase
+    const { data, error } = await sb
       .from('visitor')
       .select('count')
       .eq('id', 1)
@@ -954,7 +954,7 @@ async function updateVisitor() {
 
     const newCount = (data?.count || 0) + 1;
 
-    await supabase
+    await sb
       .from('visitor')
       .update({ count: newCount })
       .eq('id', 1);
@@ -973,7 +973,7 @@ if (!localStorage.getItem("visited")) {
   localStorage.setItem("visited", "true");
 } else {
   // just fetch current count
-  supabase
+  sb
     .from('visitor')
     .select('count')
     .eq('id', 1)

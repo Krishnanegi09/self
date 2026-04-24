@@ -603,6 +603,9 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:32px 28px
 
 <!-- ═══════════ FOOTER ═══════════ -->
 <footer>
+  <p style="margin-top:10px; margin-bottom: 10px; font-size:13px; color:var(--muted)">
+  👀 Visitors: <span id="visitorCount">Loading...</span>
+</p>
   <div class="ft-in">
     <span class="logo">&lt;Krishna Singh Negi /&gt;</span>
     <p class="ft-copy">
@@ -616,7 +619,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:32px 28px
 
 <!-- SCROLL-TOP -->
 <button id="stbtn" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
-
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 /* ═══════════════════════════════════════
    DATA — directly from Krishna's resume
@@ -932,6 +935,56 @@ window.addEventListener('scroll',()=>{
   NAV_IDS.forEach(id=>{const el=document.getElementById(id);if(el&&el.offsetTop<=sy)cur=id;});
   document.querySelectorAll('.nav-btn').forEach(b=>{b.classList.toggle('active',b.textContent.trim()===cur);});
 },{passive:true});
+
+// 🔗 SUPABASE SETUP
+const supabaseUrl = "https://sdabzuqkhkpjdaopygmk.supabase.co";
+const supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNkYWJ6dXFraGtwamRhb3B5Z21rIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzcwNTUwODMsImV4cCI6MjA5MjYzMTA4M30.BNMvgQxVyaTBV1iRKFLPn59IvMcFzStYCe5JzfHalj8";
+
+const supabaseClient = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+// 🚀 VISITOR COUNTER
+async function updateVisitor() {
+  try {
+    const { data, error } = await supabase
+      .from('visitors')
+      .select('count')
+      .eq('id', 1)
+      .single();
+
+    if (error) throw error;
+
+    const newCount = data.count + 1;
+
+    await supabaseClient
+      .from('visitor')
+      .update({ count: newCount })
+      .eq('id', 1);
+
+    document.getElementById('visitorCount').textContent = newCount;
+
+  } catch (err) {
+    console.error(err);
+    document.getElementById('visitorCount').textContent = "Error";
+  }
+}
+
+// 🧠 Prevent refresh spam
+if (!localStorage.getItem("visited")) {
+  updateVisitor();
+  localStorage.setItem("visited", "true");
+} else {
+  // just fetch current count
+  supabaseClient
+    .from('visitor')
+    .select('count')
+    .eq('id', 1)
+    .single()
+    .then(({ data }) => {
+      if (data) {
+        document.getElementById('visitorCount').textContent = data.count;
+      }
+    });
+}
 </script>
 </body>
 </html>

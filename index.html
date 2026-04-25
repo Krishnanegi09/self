@@ -49,6 +49,66 @@ nav{position:fixed;top:0;left:0;right:0;z-index:200;backdrop-filter:blur(22px);-
 .mob-btn{background:none;border:none;cursor:pointer;padding:10px 14px;font-size:15px;color:var(--muted);border-radius:10px;text-align:left;font-family:'DM Sans',sans-serif;font-weight:500;width:100%;transition:all .2s;text-transform:capitalize}
 .mob-btn:hover{color:var(--accent);background:var(--accent-glow)}
 
+/* RESUME BUTTON — navbar */
+.resume-btn{
+  display:inline-flex;align-items:center;gap:6px;
+  background:linear-gradient(135deg,#6C63FF,#8B5CF6);
+  color:#fff;
+  border:none;border-radius:99px;
+  padding:7px 18px;
+  font-size:13px;font-weight:700;
+  font-family:'DM Sans',sans-serif;
+  text-decoration:none;
+  transition:all .25s;
+  margin-left:8px;
+  white-space:nowrap;
+  box-shadow:0 4px 14px rgba(108,99,255,.35);
+}
+.resume-btn:hover{
+  transform:translateY(-2px);
+  box-shadow:0 8px 24px rgba(108,99,255,.5);
+  color:#fff;
+}
+
+/* RESUME BUTTON — mobile menu */
+.mob-resume-btn{
+  display:flex;align-items:center;justify-content:center;gap:8px;
+  background:linear-gradient(135deg,#6C63FF,#8B5CF6);
+  color:#fff;
+  border-radius:12px;
+  padding:11px 14px;
+  font-size:14px;font-weight:700;
+  font-family:'DM Sans',sans-serif;
+  text-decoration:none;
+  margin-top:6px;
+  transition:all .25s;
+}
+.mob-resume-btn:hover{opacity:.9;color:#fff}
+
+/* PESE VIDEO */
+.pese-video-wrap{
+  max-width:780px;
+  margin:0 auto 52px;
+  border-radius:20px;
+  overflow:hidden;
+  border:1px solid var(--border);
+  box-shadow:0 8px 40px rgba(108,99,255,.12);
+  background:var(--bg);
+}
+.pese-video-wrap video{
+  width:100%;
+  display:block;
+  max-height:420px;
+  background:#000;
+}
+.pese-video-caption{
+  text-align:center;
+  font-size:13px;
+  color:var(--muted);
+  padding:12px 16px;
+  border-top:1px solid var(--border);
+}
+
 /* HERO */
 #home{min-height:100vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:0 28px}
 .hero-grid{max-width:1140px;width:100%;margin:0 auto;display:grid;grid-template-columns:1fr auto;gap:56px;align-items:center;padding-top:86px}
@@ -319,6 +379,9 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:32px 28px
       <button class="nav-btn" onclick="go('projects')">Projects</button>
       <button class="nav-btn" onclick="go('certification')">Certifications</button>
       <button class="nav-btn" onclick="go('contact')">Contact</button>
+      <a href="krishna.pdf" download="Krishna_Singh_Negi_Resume.pdf" class="resume-btn">
+        ↓ Resume
+      </a>
       <button class="theme-btn" id="themeBtn" onclick="toggleTheme()">☀️</button>
       <button class="ham-btn" onclick="toggleMob()">☰</button>
     </div>
@@ -331,6 +394,9 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:32px 28px
     <button class="mob-btn" onclick="go('projects')">Projects</button>
     <button class="mob-btn" onclick="go('certification')">Certifications</button>
     <button class="mob-btn" onclick="go('contact')">Contact</button>
+    <a href="krishna.pdf" download="Krishna_Singh_Negi_Resume.pdf" class="mob-resume-btn">
+      ↓ Download Resume
+    </a>
   </div>
 </nav>
 
@@ -399,7 +465,7 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:32px 28px
           industry certifications.
         </p>
         <div class="stats-g">
-          <div class="s-box"><div class="s-val">4</div><div class="s-lbl">Projects Built</div></div>
+          <div class="s-box"><div class="s-val">4+</div><div class="s-lbl">Projects Built</div></div>
           <div class="s-box"><div class="s-val">5</div><div class="s-lbl">Certifications</div></div>
           <div class="s-box"><div class="s-val">2027</div><div class="s-lbl">Graduating Year</div></div>
           <div class="s-box"><div class="s-val">∞</div><div class="s-lbl">Curiosity Level</div></div>
@@ -460,6 +526,15 @@ footer{background:var(--bg);border-top:1px solid var(--border);padding:32px 28px
       spent about 3-4 classes on each topic, mixing some theory with a lot of practical stuff like mock interviews and
       group discussions. Here's a quick rundown of what we covered:
     </p>
+
+    <!-- PESE class video -->
+    <div class="pese-video-wrap">
+      <video controls poster="">
+        <source src="intro.mov" type="video/mp4">
+        Your browser does not support the video tag.
+      </video>
+      <p class="pese-video-caption">📹 A glimpse from our PESE class sessions</p>
+    </div>
 
     <div class="pese-grid">
 
@@ -740,6 +815,7 @@ const TIMELINE=[
   },
 ];
 
+// import {FaGithub,FaLinkedinIn,FaEnvelope,FaPhone} from node_modules/react-icons/fa/index.esm.js;
 const SOCIALS=[
   {label:"GitHub",  icon:"&lt;/&gt;",href:"https://github.com/krishnanegi09"},
   {label:"LinkedIn",icon:"in",       href:"https://www.linkedin.com/in/krishna-singh-negi/"},
